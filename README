@@ -48,3 +48,7 @@ To compile Flume, run `mvn compile`.
 To build a distribution, run `mvn install`.
 
 The final Flume distribution artifacts will be in $project/flume-ng-dist/target/.
+
+update:
+flume-ng-kakfka-sink: add topic header according app.name and app.event.type,format app.name + "." + app.event.type
+```headers.put(TOPIC_HDR,String.format("%s.%s",headers.get(APP_NAME),headers.get(APP_EVENT_TYPE)));```
