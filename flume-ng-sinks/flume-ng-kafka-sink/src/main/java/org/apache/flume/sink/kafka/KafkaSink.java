@@ -68,6 +68,8 @@ public class KafkaSink extends AbstractSink implements Configurable {
   private static final Logger logger = LoggerFactory.getLogger(KafkaSink.class);
   public static final String KEY_HDR = "key";
   public static final String TOPIC_HDR = "topic";
+  private static final String APP_NAME = "app.name";
+  private static final String APP_EVENT_TYPE = "app.event.type";
   private Properties kafkaProps;
   private Producer<String, byte[]> producer;
   private String topic;
@@ -100,6 +102,9 @@ public class KafkaSink extends AbstractSink implements Configurable {
 
         byte[] eventBody = event.getBody();
         Map<String, String> headers = event.getHeaders();
+
+        // add topic header according app.name and app.event.type,format app.name + "." + app.event.type
+        headers.put(TOPIC_HDR,String.format("%s.%s",headers.get(APP_NAME),headers.get(APP_EVENT_TYPE)));
 
         if ((eventTopic = headers.get(TOPIC_HDR)) == null) {
           eventTopic = topic;
