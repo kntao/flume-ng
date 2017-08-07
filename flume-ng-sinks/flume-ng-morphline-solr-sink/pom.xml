@@ -37,6 +37,9 @@ limitations under the License.
     <kite.version>${cdh.kite.version}</kite.version>
     <slf4j.version>${cdh.slf4j.version}</slf4j.version>
     <surefire.version>2.12.4</surefire.version>
+    <solr.version>${solr-global.version}</solr.version>
+    <solr.expected.version>${solr-global.version}</solr.expected.version> <!-- sanity check to verify we actually run against the expected version rather than some outdated version -->
+    <surefire.version>${mvn-surefire-plugin-old-morphline.version}</surefire.version>
   </properties>
 
   <dependencies>
