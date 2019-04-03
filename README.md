@@ -65,3 +65,6 @@ export MAVEN_OPTS="-Xms512m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m"
 
 To compile Flume and build a distribution tarball, run `mvn install` from the
 top level directory. The artifacts will be placed under `flume-ng-dist/target/`.
+
+
+Flume Kafka Sink  增加topic自定义，取自app.name 及app.eventType,格式为:app.name +"." + app.event.type

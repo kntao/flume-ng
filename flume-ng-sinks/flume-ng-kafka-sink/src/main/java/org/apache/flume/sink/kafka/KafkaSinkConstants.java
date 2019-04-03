@@ -59,5 +59,9 @@ public class KafkaSinkConstants {
   public static final String KEY_SERIALIZER_KEY = "key.serializer.class";
   public static final String BROKER_LIST_FLUME_KEY = "brokerList";
   public static final String REQUIRED_ACKS_FLUME_KEY = "requiredAcks";
+
+  // 添加日志
+  public static final String APP_NAME_KEY = "app.name";
+  public static final String APP_EVENT_TYPE_KEY = "app.event.type";
 }
 

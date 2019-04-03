@@ -69,6 +69,8 @@ import static org.apache.flume.sink.kafka.KafkaSinkConstants.TOPIC_CONFIG;
 import static org.apache.flume.sink.kafka.KafkaSinkConstants.TOPIC_HEADER;
 import static org.apache.flume.sink.kafka.KafkaSinkConstants.KEY_SERIALIZER_KEY;
 import static org.apache.flume.sink.kafka.KafkaSinkConstants.MESSAGE_SERIALIZER_KEY;
+import static org.apache.flume.sink.kafka.KafkaSinkConstants.APP_NAME_KEY;
+import static org.apache.flume.sink.kafka.KafkaSinkConstants.APP_EVENT_TYPE_KEY;
 
 
 /**
@@ -145,6 +147,8 @@ public class KafkaSink extends AbstractSink implements Configurable {
     Event event = null;
     String eventTopic = null;
     String eventKey = null;
+    String appName = null;
+    String appEventType = null;
 
     try {
       long processedEvents = 0;
@@ -172,8 +176,17 @@ public class KafkaSink extends AbstractSink implements Configurable {
         Map<String, String> headers = event.getHeaders();
 
         eventTopic = headers.get(TOPIC_HEADER);
+        appName = headers.get(APP_NAME_KEY);
+        appEventType = headers.get(APP_EVENT_TYPE_KEY);
+
         if (eventTopic == null) {
-          eventTopic = topic;
+          // 如果header中有appName并且有appEventType,则topic组合为appName + "." + appEventType
+          if(appName == null && appEventType == null) {
+            eventTopic = topic;
+          }
+          else {
+            eventTopic = appName + "." + appEventType;
+          }
         }
         eventKey = headers.get(KEY_HEADER);
         if (logger.isTraceEnabled()) {
